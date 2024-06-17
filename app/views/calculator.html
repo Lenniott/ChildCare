@@ -1,0 +1,123 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  GOV.UK page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-l">Calculate transfer amount</h1>
+    <a href="/" class="govuk-back-link">Back</a>
+    <div class="govuk-form-group">
+      <h2 class="govuk-heading-m">My First Nursery</h2>
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="invoice-amount">
+          Enter invoice amount
+        </label>
+        <div class="govuk-input__wrapper">
+          <div class="govuk-input__prefix" aria-hidden="true">£</div>
+          <input
+            class="govuk-input govuk-!-width-one-quarter"
+            id="invoice-amount-1-et"
+            name="invoiceAmount-1-et"
+            type="text"
+            inputmode="numeric"
+            spellcheck="false"
+          />
+          <div class="govuk-input__suffix" aria-hidden="true">
+            for Emma Thorne
+          </div>
+        </div>
+      </div>
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="invoice-amount">
+          Enter invoice amount
+        </label>
+        <div class="govuk-input__wrapper">
+          <div class="govuk-input__prefix" aria-hidden="true">£</div>
+          <input
+            class="govuk-input govuk-!-width-one-quarter"
+            id="invoice-amount-1-ct"
+            name="invoiceAmount-1-ct"
+            type="text"
+            inputmode="numeric"
+            spellcheck="false"
+          />
+          <div class="govuk-input__suffix" aria-hidden="true">
+            for Claire Thorne
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr
+      class="govuk-section-break govuk-section-break--xl govuk-section-break--visible"
+    />
+
+    <div class="govuk-form-group">
+      <h2 class="govuk-heading-m">My Second Nursery</h2>
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="invoice-amount">
+          Enter invoice amount
+        </label>
+        <div class="govuk-input__wrapper">
+          <div class="govuk-input__prefix" aria-hidden="true">£</div>
+          <input
+            class="govuk-input govuk-!-width-one-quarter"
+            id="invoice-amount-2-et"
+            name="invoiceAmount-2-et"
+            type="text"
+            inputmode="numeric"
+            spellcheck="false"
+          />
+          <div class="govuk-input__suffix" aria-hidden="true">
+            for Emma Thorne
+          </div>
+        </div>
+      </div>
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="invoice-amount">
+          Enter invoice amount
+        </label>
+        <div class="govuk-input__wrapper">
+          <div class="govuk-input__prefix" aria-hidden="true">£</div>
+          <input
+            class="govuk-input govuk-!-width-one-quarter"
+            id="invoice-amount-2-ct"
+            name="invoiceAmount-2-ct"
+            type="text"
+            inputmode="numeric"
+            spellcheck="false"
+          />
+          <div class="govuk-input__suffix" aria-hidden="true">
+            for Claire Thorne
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="govuk-button" data-module="govuk-button" id="log-button">
+      Calculate
+    </button>
+
+    <div id="display-results" style="display: none;">
+      <h2 class="govuk-heading-l">Results</h2>
+      <h3 class="govuk-heading-m">Emma Thorne</h3>
+      <p id="result-et">Amount to transfer: <span></span></p>
+      <p id="result-2-et">Amount after goverment top-up: <span></span></p>
+      <hr
+      class="govuk-section-break govuk-section-break--xl govuk-section-break--visible"
+    />
+      <h3 class="govuk-heading-m">Emma Thorne</h3>
+      <p id="result-ct">Amount to transfer for Claire Thorne: <span></span></p>
+      <p id="result-2-ct">Amount after goverment top-up: <span></span></p>
+    </div>
+    
+  </div>
+</div>
+
+<script src="app/assets/javascripts/application.js"></script>
+{% endblock %}
