@@ -1,0 +1,55 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Cost per child – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+        Cost per child from each provider
+      </h1>
+
+      <form class="form" action="/cost-per-child" method="post">
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="cost-child1-provider1">
+            Cost for child 1 from provider 1
+          </label>
+          <input class="govuk-input" id="cost-child1-provider1" name="cost-child1-provider1" type="number" required value="{{ data['cost-child1-provider1'] | default('') }}">
+        </div>
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="cost-child1-provider2">
+            Cost for child 1 from provider 2
+          </label>
+          <input class="govuk-input" id="cost-child1-provider2" name="cost-child1-provider2" type="number" required value="{{ data['cost-child1-provider2'] | default('') }}">
+        </div>
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="cost-child2-provider1">
+            Cost for child 2 from provider 1
+          </label>
+          <input class="govuk-input" id="cost-child2-provider1" name="cost-child2-provider1" type="number" required value="{{ data['cost-child2-provider1'] | default('') }}">
+        </div>
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="cost-child2-provider2">
+            Cost for child 2 from provider 2
+          </label>
+          <input class="govuk-input" id="cost-child2-provider2" name="cost-child2-provider2" type="number" required value="{{ data['cost-child2-provider2'] | default('') }}">
+        </div>
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+      </form>
+
+    </div>
+  </div>
+{% endblock %}

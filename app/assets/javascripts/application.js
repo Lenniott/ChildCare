@@ -6,7 +6,7 @@
 
 window.GOVUKPrototypeKit.documentReady(() => {
   const logButton = document.getElementById('log-button');
-  if (logButton) {
+  if (logButton ) {
     logButton.addEventListener('click', function() {
       const nursaryOneInvoiceAmountEmma = document.getElementById('invoice-amount-1-et').value;
       const nursaryOneInvoiceAmountClaire = document.getElementById('invoice-amount-1-ct').value;

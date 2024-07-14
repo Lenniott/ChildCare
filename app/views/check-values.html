@@ -1,0 +1,224 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Check your answers – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-xl">
+        Transfer amount per account
+      </h1>
+
+      <h2 class="govuk-heading-m">Emma Thorne</h2>
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: {
+              text: "Personal contribution balance"
+            },
+            value: {
+              text: "£" + emmaContribution
+            }
+          },
+          {
+            key: {
+              text: "Invoice amount for provider 1"
+            },
+            value: {
+              text: '£' + (costChild1Provider1 or 'Not provided')
+            },
+            actions: {
+              items: [
+                {
+                  href: "/cost-per-child",
+                  text: "Change",
+                  visuallyHiddenText: "Invoice amount for provider 1"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Invoice amount for provider 2"
+            },
+            value: {
+              text: '£' + (costChild1Provider2 or 'Not provided')
+            },
+            actions: {
+              items: [
+                {
+                  href: "/cost-per-child",
+                  text: "Change",
+                  visuallyHiddenText: "Invoice amount for provider 2"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Total invoice amount"
+            },
+            value: {
+              text: '£' + calculateTotalInvoice(costChild1Provider1, costChild1Provider2)
+            }
+          }
+        ]
+      }) }}
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: {
+              text: "Transfer"
+            },
+            value: {
+              text: "£" + calculateAccountAmount(costChild1Provider1, costChild1Provider2, emmaContribution)
+            }
+          },
+          {
+            key: {
+              text: "Personal contribution after transfer"
+            },
+            value: {
+              text: '£' + calculateContributionAfterTransfer(emmaContribution, costChild1Provider1, costChild1Provider2)
+            }
+          },
+          {
+            key: {
+              text: "Total amount after government top-up"
+            },
+            value: {
+              text: '£' + calculateTotalAfterTopUp(emmaContribution, costChild1Provider1, costChild1Provider2)
+            }
+          }
+        ]
+      }) }}
+      <br class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+      <h2 class="govuk-heading-m">Clare Thorne</h2>
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: {
+              text: "Personal contribution balance"
+            },
+            value: {
+              text: "£" + clareContribution
+            }
+          },
+          {
+            key: {
+              text: "Invoice amount for provider 1"
+            },
+            value: {
+              text: '£' + (costChild2Provider1 or 'Not provided')
+            },
+            actions: {
+              items: [
+                {
+                  href: "/cost-per-child",
+                  text: "Change",
+                  visuallyHiddenText: "Invoice amount for provider 1"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Invoice amount for provider 2"
+            },
+            value: {
+              text: '£' + (costChild2Provider2 or 'Not provided')
+            },
+            actions: {
+              items: [
+                {
+                  href: "/cost-per-child",
+                  text: "Change",
+                  visuallyHiddenText: "Invoice amount for provider 2"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Total invoice amount"
+            },
+            value: {
+              text: '£' + calculateTotalInvoice(costChild2Provider1, costChild2Provider2)
+            }
+          }
+        ]
+      }) }}
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: {
+              text: "Transfer"
+            },
+            value: {
+              text: "£" + calculateAccountAmount(costChild2Provider1, costChild2Provider2, clareContribution)
+            }
+          },
+          {
+            key: {
+              text: "Personal contribution after transfer"
+            },
+            value: {
+              text: '£' + calculateContributionAfterTransfer(clareContribution, costChild2Provider1, costChild2Provider2)
+            }
+          },
+          {
+            key: {
+              text: "Total amount after government top-up"
+            },
+            value: {
+              text: '£' + calculateTotalAfterTopUp(clareContribution, costChild2Provider1, costChild2Provider2)
+            }
+          }
+        ]
+      }) }}
+      
+      <br class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+      <div class="govuk-grid-row govuk-body-m">
+        <div class="govuk-grid-column-full govuk-!-margin-top-5">
+          <a href="/" class="govuk-link">Back to accounts</a>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+{% endblock %}
+
+{% macro calculateTotalInvoice(cost1, cost2) %}
+  {% set total = (cost1 | int) + (cost2 | int) %}
+  {{ total }}
+{% endmacro %}
+
+{% macro calculateAccountAmount(provider1, provider2, contribution) %}
+  {% set totalInvoice = (provider1 | int) + (provider2 | int) %}
+  {% set amount = ((totalInvoice - contribution) * 0.65) | round(0, 'ceil') %}
+  {{ amount }}
+{% endmacro %}
+
+{% macro calculateContributionAfterTransfer(contribution, cost1, cost2) %}
+  {% set transfer = calculateAccountAmount(cost1, cost2, contribution) %}
+  {% set totalContributionAfterTransfer = (contribution | int) +  (transfer | int) %}
+  {{ totalContributionAfterTransfer }}
+{% endmacro %}
+
+{% macro calculateTotalAfterTopUp(contribution, cost1, cost2) %}
+  {% set totalContributionAfterTransfer = calculateContributionAfterTransfer(contribution, cost1, cost2) %}
+  {% set totalWithTopUp = (totalContributionAfterTransfer * 1.25) | round(0, 'ceil') %}
+  {{ totalWithTopUp }}
+{% endmacro %}
+
+// Move personal contribution down to the transfer side of the table and fix the goddamn calculation
